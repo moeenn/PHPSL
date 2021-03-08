@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UnitTestFiles\Test;
 
 require __DIR__ . '/../phpsl.php';
 
 use PHPUnit\Framework\TestCase;
-use OSO\PHPSL\JSON;
+use SOL5\PHPSL\JSON;
 
 class JSONTest extends TestCase
 {
-  public function testEncode()
+  public function testEncode(): void
   {
     $cases = [
       [
@@ -35,7 +37,7 @@ class JSONTest extends TestCase
     }
   }
 
-  public function testDecode()
+  public function testDecode(): void
   {
     $cases = [
       [

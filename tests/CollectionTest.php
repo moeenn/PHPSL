@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace UnitTestFiles\Test;
 
 require __DIR__ . '/../phpsl.php';
 
 use PHPUnit\Framework\TestCase;
-use OSO\PHPSL\Collection;
+use SOL5\PHPSL\Collection;
 
 class CollectionTest extends TestCase
 {
-  public function testMap()
+  public function testMap(): void
   {
     $input = [1, 2, 3, 4, 5];
     $expected = [2, 4, 6, 8, 10];
@@ -21,7 +23,7 @@ class CollectionTest extends TestCase
     $this->assertTrue($expected === $got);
   }
 
-  public function testFilter()
+  public function testFilter(): void
   {
     $input = [1, 2, 3, 4, 5];
     $expected = [4, 5];
@@ -40,7 +42,7 @@ class CollectionTest extends TestCase
     $this->assertTrue($flag);
   }
 
-  public function testSortAscending()
+  public function testSortAscending(): void
   {
     $cases = [
       [
@@ -59,7 +61,7 @@ class CollectionTest extends TestCase
     }
   }
 
-  public function testSortDescending()
+  public function testSortDescending(): void
   {
     $cases = [
       [
@@ -80,7 +82,7 @@ class CollectionTest extends TestCase
     }
   }
 
-  public function testSortAssocAscending()
+  public function testSortAssocAscending(): void
   {
     $cases = [
       [
@@ -119,7 +121,7 @@ class CollectionTest extends TestCase
     }
   }
 
-  public function testSortAssocKeyAscending()
+  public function testSortAssocKeyAscending(): void
   {
     $cases = [
       [
@@ -160,7 +162,7 @@ class CollectionTest extends TestCase
     }
   }
 
-  public function testSortAssocDescending()
+  public function testSortAssocDescending(): void
   {
     $cases = [
       [
@@ -201,7 +203,7 @@ class CollectionTest extends TestCase
     }
   }
 
-  public function testSortAssocKeyDescending()
+  public function testSortAssocKeyDescending(): void
   {
     $cases = [
       [
@@ -239,6 +241,234 @@ class CollectionTest extends TestCase
         'order' => 'DESC',
         'by'    => 'key'
       ]);
+      $this->assertTrue($case['expected'] === $got);
+    }
+  }
+
+  public function testJoin(): void
+  {
+    $cases = [
+      [
+        'input'     => [1, 2, 3, 4, 5, 'abc'],
+        'expected'  => '1-2-3-4-5-abc'
+      ]
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::join($case['input'], '-');
+      $this->assertEquals($case['expected'], $got);
+    }
+  }
+
+  public function testExists(): void
+  {
+    $cases = [
+      [
+        'input'     => [1, 2, 3, 4, 5, 'abc'],
+        'needle'    => 4,
+        'expected'  => true
+      ],
+      [
+        'input'     => [1, 2, 3, 4, 5, 'abc'],
+        'needle'    => 'something',
+        'expected'  => false
+      ]
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::exists($case['input'], $case['needle']);
+
+      if ($case['expected']) {
+        $this->assertTrue($case['expected']);
+      } else {
+        $this->assertNotTrue($case['expected']);
+      }
+    }
+  }
+
+  public function testCheck(): void
+  {
+    $cases = [
+      [
+        'input'     => [1, 2, 3, 4, 5, 10, 20],
+        'callback'  => function ($item) {
+          return $item < 100;
+        },
+        'expected'  => true,
+      ],
+      [
+        'input'     => ['some', 'random', 'words', 'here'],
+        'callback'  => function ($item) {
+          return gettype($item) === 'string';
+        },
+        'expected'  => true,
+      ],
+      [
+        'input'     => ['some', 'random', 'words', 'here'],
+        'callback'  => function ($item) {
+          return strlen($item) > 4;
+        },
+        'expected'  => false,
+      ]
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::check($case['input'], $case['callback']);
+
+      if ($case['expected']) {
+        $this->assertTrue($got);
+      } else {
+        $this->assertNotTrue($got);
+      }
+    }
+  }
+
+  public function testLength(): void
+  {
+    $cases = [
+      [
+        'input'     => [1, 2, 3, 4, 5, 'abc'],
+        'expected'  => 6
+      ],
+      [
+        'input'     => [
+          'name'      => 'someone',
+          'age'       => 30,
+          'employed'  => true
+        ],
+        'expected'  => 3
+      ],
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::length($case['input']);
+      $this->assertEquals($case['expected'], $got);
+    }
+  }
+
+  public function testReduce(): void
+  {
+    $cases = [
+      [
+        'input'     => [10, 20, 30, 40, 50],
+        'callback'  => function ($total, $item) {
+          return $total + $item;
+        },
+        'expected'  => 150
+      ],
+      [
+        'input'     => [10, 20, 30, 40, 50],
+        'callback'  => function ($total, $item, $index, $array) {
+          $total += $item;
+
+          if ($index === count($array) - 1) {
+            return $total / count($array);
+          }
+
+          return  $total;
+        },
+        'expected'  => 30,
+      ],
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::reduce($case['input'], $case['callback']);
+      $this->assertEquals($case['expected'], $got);
+    }
+  }
+
+  public function testFind(): void
+  {
+    $cases = [
+      [
+        'input'     => [10, 20, 30, 40, 50],
+        'callback'  => function ($item) {
+          return $item > 30;
+        },
+        'expected'  => 40
+      ],
+      [
+        'input'     => [
+          [
+            'name'  => 'someone',
+            'age'   => 30
+          ],
+          [
+            'name'  => 'other',
+            'age'   => 40
+          ],
+          [
+            'name'  => 'than',
+            'age'   => 15
+          ],
+          [
+            'name'  => 'him',
+            'age'   => 25
+          ]
+        ],
+        'callback'  => function ($item) {
+          return $item['age'] > 25;
+        },
+        'expected'  => [
+          'name'  => 'someone',
+          'age'   => 30
+        ]
+      ],
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::find($case['input'], $case['callback']);
+      $this->assertTrue($case['expected'] === $got);
+    }
+  }
+
+  public function testFindAll(): void
+  {
+    $cases = [
+      [
+        'input'     => [10, 20, 30, 40, 50],
+        'callback'  => function ($item) {
+          return $item > 30;
+        },
+        'expected'  => [40, 50]
+      ],
+      [
+        'input'     => [
+          [
+            'name'  => 'someone',
+            'age'   => 30
+          ],
+          [
+            'name'  => 'other',
+            'age'   => 40
+          ],
+          [
+            'name'  => 'than',
+            'age'   => 15
+          ],
+          [
+            'name'  => 'him',
+            'age'   => 25
+          ]
+        ],
+        'callback'  => function ($item) {
+          return $item['age'] > 25;
+        },
+        'expected'  => [
+          [
+            'name'  => 'someone',
+            'age'   => 30
+          ],
+          [
+            'name'  => 'other',
+            'age'   => 40
+          ],
+        ]
+      ],
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::findAll($case['input'], $case['callback']);
       $this->assertTrue($case['expected'] === $got);
     }
   }

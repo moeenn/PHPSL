@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OSO\PHPSL;
+namespace SOL5\PHPSL;
 
 class JSON 
 {
