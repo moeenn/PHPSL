@@ -1,0 +1,2 @@
+# PHP Standard Library (PHPSL)
+There is no doubt that PHP is not the prettiest or the most well organized programming language out there. However, this does not mean PHP isn't powerful. This library attempts to make PHP more consistent and easier to use.
