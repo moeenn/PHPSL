@@ -92,7 +92,7 @@ class CollectionTest extends TestCase
         ],
         'expected'  => [
           'b' => 'Abbottabad',
-          'd' => 'Beijing',          
+          'd' => 'Beijing',
           'c' => 'Karachi',
           'a' => 'Lahore',
         ],
@@ -117,5 +117,129 @@ class CollectionTest extends TestCase
       $got = Collection::sort($case['input']);
       $this->assertTrue($case['expected'] === $got);
     }
-  }  
+  }
+
+  public function testSortAssocKeyAscending()
+  {
+    $cases = [
+      [
+        'input'     => [
+          'c' => 'Lahore',
+          'b' => 'Abbottabad',
+          'd' => 'Karachi',
+          'a' => 'Beijing',
+        ],
+        'expected'  => [
+          'a' => 'Beijing',
+          'b' => 'Abbottabad',
+          'c' => 'Lahore',
+          'd' => 'Karachi',
+        ],
+      ],
+      [
+        'input'     => [
+          'd' => 5000,
+          'a' => 2000,
+          'b' => 10,
+          'c' => 600,
+        ],
+        'expected'  => [
+          'a' => 2000,
+          'b' => 10,
+          'c' => 600,
+          'd' => 5000,
+        ],
+      ],
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::sort($case['input'], [
+        'by'  => 'key'
+      ]);
+      $this->assertTrue($case['expected'] === $got);
+    }
+  }
+
+  public function testSortAssocDescending()
+  {
+    $cases = [
+      [
+        'input'     => [
+          'a' => 'Lahore',
+          'b' => 'Abbottabad',
+          'c' => 'Karachi',
+          'd' => 'Beijing',
+        ],
+        'expected'  => [
+          'a' => 'Lahore',
+          'c' => 'Karachi',
+          'd' => 'Beijing',
+          'b' => 'Abbottabad',
+        ],
+      ],
+      [
+        'input'     => [
+          'a' => 5000,
+          'b' => 2000,
+          'c' => 10,
+          'd' => 600,
+        ],
+        'expected'  => [
+          'a' => 5000,
+          'b' => 2000,
+          'd' => 600,
+          'c' => 10,
+        ],
+      ],
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::sort($case['input'], [
+        'order' => 'DESC'
+      ]);
+      $this->assertTrue($case['expected'] === $got);
+    }
+  }
+
+  public function testSortAssocKeyDescending()
+  {
+    $cases = [
+      [
+        'input'     => [
+          'c' => 'Lahore',
+          'b' => 'Abbottabad',
+          'd' => 'Karachi',
+          'a' => 'Beijing',
+        ],
+        'expected'  => [
+          'd' => 'Karachi',
+          'c' => 'Lahore',
+          'b' => 'Abbottabad',
+          'a' => 'Beijing',
+        ],
+      ],
+      [
+        'input'     => [
+          'd' => 5000,
+          'a' => 2000,
+          'b' => 10,
+          'c' => 600,
+        ],
+        'expected'  => [
+          'd' => 5000,
+          'c' => 600,
+          'b' => 10,
+          'a' => 2000,
+        ],
+      ],
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection::sort($case['input'], [
+        'order' => 'DESC',
+        'by'    => 'key'
+      ]);
+      $this->assertTrue($case['expected'] === $got);
+    }
+  }
 }
