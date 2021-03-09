@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SOL5\PHPSL;
 
+use \Exception;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class Collection
@@ -32,24 +33,25 @@ class Collection
    */
   public static function sort(array $array, $options = []): array
   {
+
     $result = $array;
 
-    $is_associative = array_keys($array) !== range(0, count($array) - 1);
-    $is_descending =  isset($options['order']) && $options['order'] === 'DESC';
-    $is_key_sort = isset($options['by']) && $options['by'] === 'key';
+    $isAssociative = array_keys($array) !== range(0, count($array) - 1);
+    $isDescending =  isset($options['order']) && $options['order'] === 'DESC';
+    $isKeySort = isset($options['by']) && $options['by'] === 'key';
 
-    if (!$is_associative && isset($options['by'])) {
-      throw new \Exception('Cannot sort ordinary arrays by key or value');
+    if (!$isAssociative && isset($options['by'])) {
+      throw new Exception('Cannot sort ordinary arrays by key or value');
     }
 
-    if ($is_associative) {
-      if ($is_descending) {
-        ($is_key_sort) ? krsort($result) : arsort($result);
+    if ($isAssociative) {
+      if ($isDescending) {
+        ($isKeySort) ? krsort($result) : arsort($result);
         return $result;
       }
 
-      if (!$is_descending) {
-        ($is_key_sort) ? ksort($result) : asort($result);
+      if (!$isDescending) {
+        ($isKeySort) ? ksort($result) : asort($result);
         return $result;
       }
 
@@ -57,8 +59,8 @@ class Collection
       return $result;
     }
 
-    if (!$is_associative) {
-      ($is_descending) ? rsort($result) : sort($result);
+    if (!$isAssociative) {
+      ($isDescending) ? rsort($result) : sort($result);
       return $result;
     }
 
@@ -113,7 +115,9 @@ class Collection
    */
   public static function reduce(array $array, $callback, $total = 0)
   {
-    for ($index = 0; $index < count($array); $index++) {
+    $length = count($array);
+
+    for ($index = 0; $index < $length; $index++) {
       $total = $callback($total, $array[$index], $index, $array);
     }
 
@@ -127,9 +131,9 @@ class Collection
   public static function find(array $array, $callback)
   {
     foreach ($array as &$item) {
-      $is_found = $callback($item);
+      $isFound = $callback($item);
 
-      if ($is_found) return $item;
+      if ($isFound) return $item;
     }
 
     return null;
@@ -144,8 +148,8 @@ class Collection
     $results = [];
 
     foreach ($array as &$item) {
-      $is_found = $callback($item);
-      if ($is_found) array_push($results, $item);
+      $isFound = $callback($item);
+      if ($isFound) array_push($results, $item);
     }
 
     return $results;

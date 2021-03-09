@@ -48,12 +48,12 @@ class Str
   */
   public static function random(array $options = []): string
   {
-    $default_options = [
+    $defaultOptions = [
       'length'  => 10,
       'numbers' => false,
     ];
 
-    $options = array_merge($default_options, $options);
+    $options = array_merge($defaultOptions, $options);
     $keyspace = ($options['numbers'])
       ? '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
       : 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -92,7 +92,7 @@ class Str
   */
   public static function sprintf(string $format, array $args): string
   {
-    return \sprintf($format, ...$args);
+    return sprintf($format, ...$args);
   }  
 
   /**
@@ -101,6 +101,6 @@ class Str
   */
   public static function printf(string $format, array $args): void
   {
-    echo \sprintf($format, ...$args);
+    echo sprintf($format, ...$args);
   }  
 }

@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace SOL5\PHPSL;
 
+use \Exception;
+use \min;
+use \max;
+use \pi;
+
 class Number
 {
   /**
@@ -12,13 +17,13 @@ class Number
    */
   public static function int($number): int
   {
-    $allowed_types = ['string', 'double', 'integer'];
+    $allowedTypes = ['string', 'double', 'integer'];
     $type = gettype($number);
 
-    if (!in_array($type, $allowed_types)) {
-      throw new \Exception(
+    if (!in_array($type, $allowedTypes)) {
+      throw new Exception(
         'Invalid argument type: please provide ' .
-          implode(', ', $allowed_types)
+          implode(', ', $allowedTypes)
       );
     };
 
@@ -31,13 +36,13 @@ class Number
    */
   public static function float($number): float
   {
-    $allowed_types = ['string', 'double', 'integer'];
+    $allowedTypes = ['string', 'double', 'integer'];
     $type = gettype($number);
 
-    if (!in_array($type, $allowed_types)) {
-      throw new \Exception(
+    if (!in_array($type, $allowedTypes)) {
+      throw new Exception(
         'Invalid argument type: please provide ' .
-          implode(', ', $allowed_types)
+          implode(', ', $allowedTypes)
       );
     };
 
@@ -50,7 +55,7 @@ class Number
    */
   public static function min(array $array)
   {
-    return \min($array);
+    return min($array);
   }
 
   /**
@@ -59,7 +64,7 @@ class Number
    */
   public static function max(array $array)
   {
-    return \max($array);
+    return max($array);
   }
 
   /**
@@ -68,7 +73,7 @@ class Number
    */
   public static function pi(): float
   {
-    return \pi();
+    return pi();
   }
 
   /**

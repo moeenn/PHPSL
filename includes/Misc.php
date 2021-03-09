@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace SOL5\PHPSL;
 
-function dd(array $array, bool $detailed = false): void
+function debug(array $array, array $options = []): void
 {
+  $defaultOptions = [
+    'detailed'  => false,
+  ];
+
+  $options = array_merge($defaultOptions, $options);
+
   echo "<style>
   pre {
     background: #fdf6e3; 
@@ -26,7 +32,6 @@ function dd(array $array, bool $detailed = false): void
   </style>";
 
   echo "<pre>";
-  ($detailed) ? var_dump($array) : print_r($array);
+  ($options['detailed']) ? var_dump($array) : print_r($array);
   echo '</pre>';
-  die();
 }
