@@ -18,7 +18,7 @@ class HashTest extends TestCase
     $hashes = [];
 
     for ($i = 0; $i < $limit; $i++) {
-      $hash = Hash::encode($message);
+      $hash = Hash\encode($message);
       array_push($hashes, $hash);
     }
 
@@ -29,8 +29,8 @@ class HashTest extends TestCase
   public function testVerify(): void
   {
     $input = 'Hello World';
-    $hash = Hash::encode($input);
-    $is_match = Hash::verify($input, $hash);
+    $hash = Hash\encode($input);
+    $is_match = Hash\verify($input, $hash);
     $this->assertTrue($is_match);
   }
 
@@ -42,7 +42,7 @@ class HashTest extends TestCase
 
     for ($i = 0; $i < $limit; $i++)
     {
-      $hash = Hash::md5($input);
+      $hash = Hash\md5($input);
       array_push($hashes, $hash);
     }
 

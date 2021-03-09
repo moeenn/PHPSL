@@ -3,12 +3,12 @@ Everyone will agress that PHP is not the prettiest or the most well organized pr
 
 ### TODO
 1. Numbers
-	* Deg -> Rad / Rad -> Deg
 	* Sin / Cos / Tan
 1. Get URL query strings
 1. Get POST content
 1. Server-side fetch
 1. Array
+	* merge
 	* removed fields from a large associative array
 1. Set Headers
 1. Cookies
@@ -30,5 +30,4 @@ Everyone will agress that PHP is not the prettiest or the most well organized pr
 	* Connect to DB
 	* Execute queries
 	* Fetch data from DB
-1. Localize PHP variables for access through javascript (??)
 1. Regexp

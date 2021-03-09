@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace UnitTestFiles\Test;
 
@@ -25,7 +25,7 @@ class StrTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Str::upper($case['input']);
+      $got = Str\upper($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -44,7 +44,7 @@ class StrTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Str::lower($case['input']);
+      $got = Str\lower($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -63,7 +63,7 @@ class StrTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Str::title($case['input']);
+      $got = Str\title($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -78,7 +78,7 @@ class StrTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Str::slug($case['input']);
+      $got = Str\slug($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -88,9 +88,8 @@ class StrTest extends TestCase
     $limit = 200;
     $strings = [];
 
-    for ($i = 0; $i < $limit; $i++)
-    {
-      $string = Str::random([
+    for ($i = 0; $i < $limit; $i++) {
+      $string = Str\random([
         'length'  => 10,
         'numbers' => true,
       ]);
@@ -117,9 +116,8 @@ class StrTest extends TestCase
       ]
     ];
 
-    foreach ($cases as &$case)
-    {
-      $got = Str::split($case['input'], $case['delimiter']);
+    foreach ($cases as &$case) {
+      $got = Str\split($case['input'], $case['delimiter']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -134,7 +132,7 @@ class StrTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Str::length($case['input']);
+      $got = Str\length($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -155,7 +153,7 @@ class StrTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Str::sprintf($case['input'], $case['args']);
+      $got = Str\sprintf($case['input'], $case['args']);
       $this->assertEquals($case['expected'], $got);
     }
   }

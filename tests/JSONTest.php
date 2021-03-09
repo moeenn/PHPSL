@@ -32,7 +32,7 @@ class JSONTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = JSON::encode($case['input']);
+      $got = JSON\encode($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -58,7 +58,7 @@ class JSONTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = JSON::decode($case['input']);
+      $got = JSON\decode($case['input']);
       $this->assertTrue($case['expected'] === $got);
     }
   }

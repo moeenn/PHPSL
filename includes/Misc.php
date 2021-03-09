@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SOL5\PHPSL;
 
-function debug(array $array, array $options = []): void
+function debug($data, array $options = []): void
 {
   $defaultOptions = [
     'detailed'  => false,
@@ -32,6 +32,17 @@ function debug(array $array, array $options = []): void
   </style>";
 
   echo "<pre>";
-  ($options['detailed']) ? var_dump($array) : print_r($array);
+  ($options['detailed']) ? var_dump($data) : print_r($data);
   echo '</pre>';
+}
+
+/**
+ *  get query parameters from current URL
+ * 
+*/
+function query(string $param = null)
+{
+  if (!isset($param)) return $_GET;
+  if (!isset($_GET[$param])) return [];
+  return $_GET[$param];
 }

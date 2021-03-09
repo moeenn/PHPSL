@@ -6,17 +6,19 @@ namespace UnitTestFiles\Test;
 
 require __DIR__ . '/../phpsl.php';
 
+use Collator;
+use phpDocumentor\Reflection\Types\Collection as TypesCollection;
 use PHPUnit\Framework\TestCase;
 use SOL5\PHPSL\Collection;
 
-class CollectionTest extends TestCase
+class ArrTest extends TestCase
 {
   public function testMap(): void
   {
     $input = [1, 2, 3, 4, 5];
     $expected = [2, 4, 6, 8, 10];
 
-    $got = Collection::map($input, function ($number) {
+    $got = Collection\map($input, function ($number) {
       return $number * 2;
     });
 
@@ -28,7 +30,7 @@ class CollectionTest extends TestCase
     $input = [1, 2, 3, 4, 5];
     $expected = [4, 5];
 
-    $got = Collection::filter($input, function ($number) {
+    $got = Collection\filter($input, function ($number) {
       return $number > 3;
     });
 
@@ -56,7 +58,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::sort($case['input']);
+      $got = Collection\sort($case['input']);
       $this->assertTrue($case['expected'] === $got);
     }
   }
@@ -75,7 +77,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::sort($case['input'], [
+      $got = Collection\sort($case['input'], [
         'order' => 'DESC'
       ]);
       $this->assertTrue($case['expected'] === $got);
@@ -116,7 +118,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::sort($case['input']);
+      $got = Collection\sort($case['input']);
       $this->assertTrue($case['expected'] === $got);
     }
   }
@@ -155,7 +157,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::sort($case['input'], [
+      $got = Collection\sort($case['input'], [
         'by'  => 'key'
       ]);
       $this->assertTrue($case['expected'] === $got);
@@ -196,7 +198,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::sort($case['input'], [
+      $got = Collection\sort($case['input'], [
         'order' => 'DESC'
       ]);
       $this->assertTrue($case['expected'] === $got);
@@ -237,7 +239,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::sort($case['input'], [
+      $got = Collection\sort($case['input'], [
         'order' => 'DESC',
         'by'    => 'key'
       ]);
@@ -255,7 +257,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::join($case['input'], '-');
+      $got = Collection\join($case['input'], '-');
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -276,7 +278,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::exists($case['input'], $case['needle']);
+      $got = Collection\exists($case['input'], $case['needle']);
 
       if ($case['expected']) {
         $this->assertTrue($case['expected']);
@@ -313,7 +315,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::check($case['input'], $case['callback']);
+      $got = Collection\check($case['input'], $case['callback']);
 
       if ($case['expected']) {
         $this->assertTrue($got);
@@ -341,7 +343,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::length($case['input']);
+      $got = Collection\length($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -372,7 +374,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::reduce($case['input'], $case['callback']);
+      $got = Collection\reduce($case['input'], $case['callback']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -417,7 +419,7 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::find($case['input'], $case['callback']);
+      $got = Collection\find($case['input'], $case['callback']);
       $this->assertTrue($case['expected'] === $got);
     }
   }
@@ -468,8 +470,62 @@ class CollectionTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Collection::findAll($case['input'], $case['callback']);
+      $got = Collection\findAll($case['input'], $case['callback']);
       $this->assertTrue($case['expected'] === $got);
+    }
+  }
+
+  public function testPush(): void
+  {
+    $cases = [
+      [
+        'input_1'   => [1, 2, 3, 4, 5],
+        'input_2'   => [10, 20, 30],
+        'expected'  => [1, 2, 3, 4, 5, 10, 20, 30],
+      ]
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection\push($case['input_1'], $case['input_2']);
+      $this->assertTrue($case['expected'] === $got);
+    }
+  }
+
+  public function testAppend(): void
+  {
+    $cases = [
+      [
+        'input_1'   => [1, 2, 3, 4, 5],
+        'input_2'   => [10, 20, 30],
+        'expected'  => [10, 20, 30, 1, 2, 3, 4, 5],
+      ]
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection\append($case['input_1'], $case['input_2']);
+      $this->assertTrue($case['expected'] === $got);
+    }
+  }
+
+  public function testMerge(): void
+  {
+    $cases = [
+      [
+        'input_1'   => [1, 2, 3, 4, 5],
+        'input_2'   => [10, 20, 30],
+        'expected'  => [1, 2, 3, 4, 5, 10, 20, 30],
+      ]
+    ];
+
+    foreach ($cases as &$case) {
+      $got = Collection\merge($case['input_1'], $case['input_2']);
+
+      $length = count($case['input_1']) + count($case['input_2']);
+      $this->assertEquals($length, count($got));
+
+      for ($i = 0; $i < $length; $i++) {
+        $this->assertEquals($case['expected'][$i], $got[$i]);
+      }
     }
   }
 }

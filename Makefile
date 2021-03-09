@@ -2,5 +2,7 @@ test:
 	./vendor/bin/phpunit;
 
 analyze:
-	./vendor/bin/phpmd ./includes/ json rulesets.xml;
-	# ./vendor/bin/phpmd ./tests/ json rulesets.xml;
+	./vendor/bin/phpmd ./includes/ text phpmd_rulesets/rulesets.xml;
+
+loc:
+	phploc ./ --exclude vendor

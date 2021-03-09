@@ -7,7 +7,7 @@ namespace UnitTestFiles\Test;
 require __DIR__ . '/../phpsl.php';
 
 use PHPUnit\Framework\TestCase;
-use SOL5\PHPSL\Number;
+use SOL5\PHPSL\Num;
 
 class NumberTest extends TestCase
 {
@@ -29,7 +29,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::int($case['input']);
+      $got = Num\int($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -52,7 +52,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::float($case['input']);
+      $got = Num\float($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -71,7 +71,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::min($case['input']);
+      $got = Num\min($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -90,7 +90,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::max($case['input']);
+      $got = Num\max($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -98,7 +98,7 @@ class NumberTest extends TestCase
   public function testPi(): void
   {
     $expected = 3.1415926535898;
-    $got = Number::pi();
+    $got = Num\pi();
     $this->assertEquals($expected, $got);
   }
 
@@ -120,7 +120,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::round($case['input']);
+      $got = Num\round($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -143,7 +143,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::floor($case['input']);
+      $got = Num\floor($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -166,7 +166,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::ceiling($case['input']);
+      $got = Num\ceiling($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }
@@ -189,7 +189,7 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::radians($case['input']);
+      $got = Num\radians($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }  
@@ -208,8 +208,21 @@ class NumberTest extends TestCase
     ];
 
     foreach ($cases as &$case) {
-      $got = Number::degrees($case['input']);
+      $got = Num\degrees($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
   }    
+
+  public function testRandomInt(): void
+  {
+    $bounds = [
+      'min' => 10,
+      'max' => 100,
+    ];
+
+    for ($i = 0; $i < 500; $i++) {
+      $num = Num\randomInt($bounds['min'], $bounds['max']);
+      $this->assertTrue($num >= $bounds['min'] && $num < $bounds['max']);
+    }
+  }
 }
