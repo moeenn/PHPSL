@@ -31,3 +31,12 @@ Everyone will agress that PHP is not the prettiest or the most well organized pr
 	* Execute queries
 	* Fetch data from DB
 1. Regexp
+1. Security
+	* CSRF Fields
+	* JWT
+	* XSS
+	* SQL Injections
+	* Session Hijacking
+
+### Refactor
+1. Differentiate between Slice and Map and implement methods on their objects
