@@ -8,6 +8,7 @@ function debug($data, array $options = []): void
 {
   $defaultOptions = [
     'detailed'  => false,
+    'exit'      => true,
   ];
 
   $options = array_merge($defaultOptions, $options);
@@ -34,15 +35,6 @@ function debug($data, array $options = []): void
   echo "<pre>";
   ($options['detailed']) ? var_dump($data) : print_r($data);
   echo '</pre>';
-}
 
-/**
- *  get query parameters from current URL
- * 
-*/
-function query(string $param = null)
-{
-  if (!isset($param)) return $_GET;
-  if (!isset($_GET[$param])) return [];
-  return $_GET[$param];
+  if ($options['exit']) exit();
 }
