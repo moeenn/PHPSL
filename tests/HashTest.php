@@ -49,4 +49,15 @@ class HashTest extends TestCase
     $is_same = count(array_unique($hashes)) === 1;
     $this->assertTrue($is_same);
   }
+
+  public function testSalt(): void
+  {
+    $results = [];
+
+    foreach (range(1,500) as &$i) {
+      $salt = Hash\salt();
+      $this->assertTrue(!in_array($salt, $results));
+      array_push($results, $salt);
+    }
+  }
 }

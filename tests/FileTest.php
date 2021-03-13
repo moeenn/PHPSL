@@ -52,13 +52,13 @@ class FileTest extends TestCase
     $this->assertTrue($size === $this->contentSize);
   }
 
-  public function testDump(): void
-  {
-    $file = new File($this->filePath);
-    $content = $file->dump();
+  // public function testDump(): void
+  // {
+  //   $file = new File($this->filePath);
+  //   $content = $file->dump();
 
-    $this->assertEquals($this->content, $content);
-  }
+  //   $this->assertEquals($this->content, $content);
+  // }
 
   public function testDelete(): void
   {

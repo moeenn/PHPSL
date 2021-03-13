@@ -12,11 +12,13 @@ function encode(string $string): string
 {
   $hash = \password_hash(
     $string,
-    PASSWORD_ARGON2I,
+    PASSWORD_ARGON2ID,
     [
       'memory_cost' => 2048,
-      'time_cost' => 4,
-      'threads' => 3
+      'time_cost'   => 4,
+      'threads'     => 3,
+      'cost'        => 3,
+      'salt'        => salt(),
     ]
   );
   return $hash;
@@ -38,4 +40,13 @@ function verify(string $cleartext, string $hash)
 function md5(string $string): string
 {
   return \md5($string);
+}
+
+/**
+ *  generate random salt value
+ * 
+*/
+function salt(): string
+{
+  return \random_bytes(128);
 }

@@ -6,8 +6,6 @@ namespace UnitTestFiles\Test;
 
 require __DIR__ . '/../phpsl.php';
 
-use Collator;
-use phpDocumentor\Reflection\Types\Collection as TypesCollection;
 use PHPUnit\Framework\TestCase;
 use SOL5\PHPSL\Collection;
 

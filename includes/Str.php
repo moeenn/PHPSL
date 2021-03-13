@@ -43,6 +43,7 @@ function slug(string $string): string
 
 /**
  *  create random string
+ *  not suitable for crypto purposes
  * 
  */
 function random(array $options = []): string
