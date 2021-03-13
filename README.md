@@ -4,21 +4,9 @@ Everyone will agress that PHP is not the prettiest or the most well organized pr
 ### TODO
 1. Numbers
 	* Sin / Cos / Tan
-1. Get URL query strings
-1. Get POST content
 1. Server-side fetch
-1. Array
-	* merge
+1. Map
 	* removed fields from a large associative array
-1. Set Headers
-1. Cookies
-	* Set / update / Remove cookies
-1. Files
-	* read entire file content into memory
-	* read file line-by-line (iterator)
-	* write content to file
-		* over-write
-		* append
 1. FS
 	* Check existance - Files & Dirs
 	* Check if file or dir
@@ -37,6 +25,8 @@ Everyone will agress that PHP is not the prettiest or the most well organized pr
 	* XSS
 	* SQL Injections
 	* Session Hijacking
-
-### Refactor
-1. Differentiate between Slice and Map and implement methods on their objects
+1. Get URL query strings ??
+1. Get POST content ??
+1. Set Headers ??
+1. Cookies ??
+	* Set / update / Remove cookies

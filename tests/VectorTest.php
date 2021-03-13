@@ -107,7 +107,7 @@ class VectorTest extends TestCase
 
     foreach ($cases as &$case) {
       $vec = new Vector($case['input']);
-      $vec->map($case['callback']);
+      $vec = $vec->map($case['callback']);
       $this->assertTrue($case['expected'] === $vec->toArray());
     }
   }

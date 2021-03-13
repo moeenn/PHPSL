@@ -12,3 +12,4 @@ require_once __DIR__ . '/includes/Hash.php';
 require_once __DIR__ . '/includes/Misc.php';
 require_once __DIR__ . '/includes/File.php';
 require_once __DIR__ . '/includes/Vector.php';
+require_once __DIR__ . '/includes/Database.php';

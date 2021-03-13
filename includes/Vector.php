@@ -22,6 +22,15 @@ class Vector
   }
 
   /**
+   *  allow printing vector as string
+   * 
+  */
+  public function __toString(): string
+  {
+    return '[' . \implode(', ', $this->array) . ']';
+  }
+
+  /**
    *  check if array is normal array (vector) or associative array (map)
    * 
    */
@@ -40,7 +49,7 @@ class Vector
   }
 
   /**
-   *  get length of array
+   *  get length of vector
    * 
    */
   public function length(): int
@@ -67,8 +76,8 @@ class Vector
    */
   public function map($callback): Vector
   {
-    $this->array = array_map($callback, $this->array);
-    return new Vector($this->array);
+    $array = array_map($callback, $this->array);
+    return new Vector($array);
   }
 
   /**
@@ -92,8 +101,8 @@ class Vector
    */
   function filter($callback): Vector
   {
-    $results = array_filter($this->array, $callback);
-    return new Vector($results);
+    $array = array_filter($this->array, $callback);
+    return new Vector($array);
   }
 
   /**
