@@ -15,19 +15,13 @@ class VectorTest extends TestCase
   public function testConstruct(): void
   {
     $cases = [
-      [
-        'input'     => [1, 2, 3, 4, 5, 6],
-        'expected'  => [1, 2, 3, 4, 5, 6],
-      ],
-      [
-        'input'     => ['a', 'b', 'c', 'xyz'],
-        'expected'  => ['a', 'b', 'c', 'xyz'],
-      ]
+        [1, 2, 3, 4, 5, 6],
+        ['a', 'b', 'c', 'xyz'],
     ];
 
     foreach ($cases as &$case) {
-      $vec = new Vector($case['input']);
-      $this->assertTrue($case['expected'] === $vec->toArray());
+      $vec = new Vector($case);
+      $this->assertTrue($case === $vec->toArray());
     }
   }
 
@@ -310,44 +304,6 @@ class VectorTest extends TestCase
     }
   }
 
-  public function testFind(): void
-  {
-    $cases = [
-      [
-        'input'     => [10, 20, 30, 40, 50],
-        'callback'  => function ($item) {
-          return $item > 30;
-        },
-        'expected'  => 40
-      ]
-    ];
-
-    foreach ($cases as &$case) {
-      $vec = new Vector($case['input']);
-      $got = $vec->find($case['callback']);
-      $this->assertTrue($case['expected'] === $got);
-    }
-  }
-
-  public function testFindAll(): void
-  {
-    $cases = [
-      [
-        'input'     => [10, 20, 30, 40, 50],
-        'callback'  => function ($item) {
-          return $item > 30;
-        },
-        'expected'  => [40, 50]
-      ],
-    ];
-
-    foreach ($cases as &$case) {
-      $vec = new Vector($case['input']);
-      $got = $vec->findAll($case['callback']);
-      $this->assertTrue($case['expected'] === $got);
-    }
-  }
-
   public function testPush(): void
   {
     $cases = [
@@ -361,7 +317,7 @@ class VectorTest extends TestCase
     foreach ($cases as &$case) {
       $vec = new Vector($case['input_1']);
       $got = $vec->push($case['input_2']);
-      $this->assertTrue($case['expected'] === $got);
+      $this->assertTrue($case['expected'] === $got->toArray());
     }
   }
 
@@ -378,7 +334,7 @@ class VectorTest extends TestCase
     foreach ($cases as &$case) {
       $vec = new Vector($case['input_1']);
       $got = $vec->append($case['input_2']);
-      $this->assertTrue($case['expected'] === $got);
+      $this->assertTrue($case['expected'] === $got->toArray());
     }
   }
 }

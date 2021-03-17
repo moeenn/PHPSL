@@ -162,57 +162,26 @@ class Vector
   }
 
   /**
-   *  find an element in array based on callback
-   * 
-   */
-  public function find($callback)
-  {
-    foreach ($this->array as &$item) {
-      $isFound = $callback($item);
-
-      if ($isFound) return $item;
-    }
-
-    return null;
-  }
-
-  /**
-   *  find elements in array based on callback
-   * 
-   */
-  public function findAll($callback): array
-  {
-    $results = [];
-
-    foreach ($this->array as &$item) {
-      $isFound = $callback($item);
-      if ($isFound) \array_push($results, $item);
-    }
-
-    return $results;
-  }
-
-  /**
    *  add elements to end of array
    * 
    */
-  public function push(array $values): array
+  public function push(array $values): Vector
   {
     $result = [];
     \array_push($result, ...$this->array, ...$values);
 
-    return $result;
+    return new Vector($result);
   }
 
   /**
    *  add elements to start of array
    * 
    */
-  public function append(array $values): array
+  public function append(array $values): Vector
   {
     $result = [];
     \array_push($result, ...$values, ...$this->array);
 
-    return $result;
+    return new Vector($result);
   }
 }
