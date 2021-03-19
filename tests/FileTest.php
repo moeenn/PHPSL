@@ -7,6 +7,7 @@ namespace UnitTestFiles\Test;
 require __DIR__ . '/../phpsl.php';
 
 use PHPUnit\Framework\TestCase;
+use SOL5\PHPSL\File\FileObject;
 use SOL5\PHPSL\File;
 
 class FileTest extends TestCase
@@ -18,25 +19,26 @@ class FileTest extends TestCase
 
   protected function setUp(): void
   {
-    File::create($this->filePath);
+    File\create($this->filePath);
     $this->contentSize = mb_strlen($this->content, '8bit');
   }
 
   public function testExists(): void
   {    
-    $this->assertTrue(File::exists($this->filePath));
+    $exists = File\exists($this->filePath);
+    $this->assertTrue($exists);
   }
 
-  public function testRename(): void
+  public function testMove(): void
   {
-    File::rename($this->filePath, $this->newfilePath);
-    $this->assertTrue(File::exists($this->newfilePath));
-    File::rename($this->newfilePath, $this->filePath);
+    File\move($this->filePath, $this->newfilePath);
+    $this->assertTrue(File\exists($this->newfilePath));
+    File\move($this->newfilePath, $this->filePath);
   }
   
   public function testSize(): void
   {
-    $file = new File($this->filePath);
+    $file = new FileObject($this->filePath);
     $size = $file->size();
 
     // file is empty at this point
@@ -45,24 +47,34 @@ class FileTest extends TestCase
 
   public function testWrite(): void
   {
-    $file = new File($this->filePath, File::WRITE);
+    $file = new FileObject($this->filePath, FileObject::WRITE);
     $file->write($this->content);
 
     $size = $file->size();
     $this->assertTrue($size === $this->contentSize);
   }
 
-  // public function testDump(): void
-  // {
-  //   $file = new File($this->filePath);
-  //   $content = $file->dump();
+  public function testDump(): void
+  {
+    $file = new FileObject($this->filePath, FileObject::WRITE);
+    $file->write($this->content);    
 
-  //   $this->assertEquals($this->content, $content);
-  // }
+    $file = new FileObject($this->filePath);
+    $content = $file->dump();
+
+    $this->assertEquals($this->content, $content);
+  }
 
   public function testDelete(): void
   {
-    File::delete($this->filePath);
-    $this->assertFalse(File::exists($this->filePath));
+    File\delete($this->filePath);
+    $this->assertFalse(File\exists($this->filePath));
+  }
+
+  public function tearDown(): void
+  {
+    if (File\exists($this->filePath)) {
+      File\delete($this->filePath);
+    }
   }
 }

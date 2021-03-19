@@ -14,3 +14,4 @@ require_once __DIR__ . '/includes/Database.php';
 require_once __DIR__ . '/includes/Vector.php';
 require_once __DIR__ . '/includes/Map.php';
 require_once __DIR__ . '/includes/Collection.php';
+require_once __DIR__ . '/includes/Dir.php';

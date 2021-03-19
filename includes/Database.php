@@ -13,7 +13,6 @@ class Database
 {
   private string $dsn;
   private $connection = null;
-  private array $migrations = [];
 
   function __construct(string $host, string $db_name)
   {
@@ -60,46 +59,32 @@ class Database
       throw new Exception("This query returns results. Please use 'fetch()' method instead");
     }
 
-    $query->execute($args);
+    try {
+      $query->execute($args);
+    } catch (Exception $e) {
+      throw new Exception("Failed to execute query: {$e->getMessage()}");
+    }
   }
 
   /**
    *  execute queries that return results
    * 
   */
-  public function fetch(string $statement, array $args = []): Generator
+  public function &fetch(string $statement, array $args = []): Generator
   {
     $query = $this->connection->prepare($statement);
-    $query->execute($args);
 
-    $results = $query->fetchAll();
-    yield from $results;
-  }
-
-  /**
-   *  register a migration
-   * 
-  */
-  public function addMigration(string $query): void
-  {
-    array_push($this->migrations, $query);
-  }
-
-  /**
-   *  run all migrations as a single transaction
-   * 
-  */
-  public function runMigrations(): void
-  {
-    $query = "START TRANSACTION;";
-
-    foreach ($this->migrations as &$migration) {
-      $query .= $migration;
+    try {
+      $query->execute($args);
+    } catch (Exception $e) {
+      throw new Exception("Failed to fetch records: {$e->getMessage()}");
     }
 
-    $query .= "COMMIT;";
-    echo PHP_EOL . $query . PHP_EOL;
-    $this->execute($query);
+    $results = $query->fetchAll();
+
+    foreach ($results as &$result) {
+      yield $result;
+    }
   }
 
   /**

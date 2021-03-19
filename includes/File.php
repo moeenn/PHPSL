@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace SOL5\PHPSL;
+namespace SOL5\PHPSL\File;
+
 use \Exception;
 use \Generator;
 
-class File
+class FileObject
 {
   private string $filepath;
   private $file;
@@ -89,14 +90,14 @@ class File
   /**
    *  write content to a file
    * 
-  */
+   */
   public function write(string $content): void
   {
     if (!$this->isOpen) $this->open();
 
     $writeModes = [self::WRITE, self::APPEND];
     if (!in_array($this->mode, $writeModes)) {
-      throw new Exception("File is currently open in read-only mode. Please open the file in write mode to continue"); 
+      throw new Exception("File is currently open in read-only mode. Please open the file in write mode to continue");
     }
 
     \fwrite($this->file, $content);
@@ -106,7 +107,7 @@ class File
   /**
    *  clear out current content of a file
    * 
-  */
+   */
   public function clear(): void
   {
     \file_put_contents($this->filepath, '');
@@ -115,7 +116,7 @@ class File
   /**
    *  close a file
    * 
-  */
+   */
   public function close(): void
   {
     if ($this->file !== null) {
@@ -132,74 +133,74 @@ class File
   {
     $this->close();
   }
+}
 
 
-  /**
-   *  file related utilities
-   * 
-   */
-  static public function exists(string $filepath): bool
-  {
-    return \file_exists($filepath);
+/**
+ *  file related utilities
+ * 
+ */
+function exists(string $filepath): bool
+{
+  return \file_exists($filepath);
+}
+
+/**
+ *  check if path is actually a file
+ * 
+ */
+function isFile(string $filepath): bool
+{
+  return \is_file($filepath);
+}
+
+/**
+ *  delete a file
+ * 
+ */
+function delete(string $filepath): void
+{
+  if (!exists($filepath)) {
+    throw new Exception("File '{$filepath}' cannot be deleted because it was not found");
   }
 
-  /**
-   *  check if path is actually a file
-   * 
-   */
-  static public function isFile(string $filepath): bool
-  {
-    return \is_file($filepath);
+  $isDeleted = \unlink($filepath);
+  if (!$isDeleted) {
+    throw new Exception("Failed to delete file '{$filepath}'");
+  }
+}
+
+/**
+ *  move / rename a file
+ * 
+ */
+function move(string $oldPath, string $newPath): void
+{
+  if ($oldPath === $newPath) {
+    throw new Exception("File '{$oldPath}' must be given a new name in order to be renamed");
   }
 
-  /**
-   *  delete a file
-   * 
-  */
-  static public function delete(string $filepath): void
-  {
-    if (!self::exists($filepath)) {
-      throw new Exception("File '{$filepath}' cannot be deleted because it was not found");
-    }
-
-    $isDeleted = \unlink($filepath);
-    if (!$isDeleted) {
-      throw new Exception("Failed to delete file '{$filepath}'");
-    }
+  if (!exists($oldPath)) {
+    throw new Exception("File '{$oldPath}' cannot be renamed because it was not found");
   }
 
-  /**
-   *  rename a file
-   * 
-  */
-  static public function rename(string $oldPath, string $newPath): void
-  {
-    if ($oldPath === $newPath) {
-      throw new Exception("File '{$oldPath}' must be given a new name in order to be renamed");
-    }
-
-    if (!self::exists($oldPath)) {
-      throw new Exception("File '{$oldPath}' cannot be renamed because it was not found");
-    }
-
-    if (!self::isFile($oldPath)) {
-      throw new Exception("File '{$oldPath}' cannot be renamed because it is not a file");
-    }
-
-    if (self::exists($newPath)) {
-      throw new Exception("File '{$oldPath}' cannot be renamed as '{$newPath}' because the latter already exists");
-    }
-    
-    \rename($oldPath, $newPath);
+  if (!isFile($oldPath)) {
+    throw new Exception("File '{$oldPath}' cannot be renamed because it is not a file");
   }
 
-  /**
-   *  create an empty file
-   * 
-  */
-  static public function create(string $filepath): void
-  {
-    $file = \fopen($filepath, self::WRITE);
-    \fclose($file);
+  if (exists($newPath)) {
+    throw new Exception("File '{$oldPath}' cannot be renamed as '{$newPath}' because the latter already exists");
   }
+
+  \rename($oldPath, $newPath);
+}
+
+/**
+ *  create an empty file
+ * 
+ */
+function create(string $filepath): void
+{
+  $file = \fopen($filepath, FileObject::WRITE);
+  \fclose($file);
 }
