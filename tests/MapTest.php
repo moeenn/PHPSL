@@ -12,6 +12,10 @@ use \Exception;
 
 class MapTest extends TestCase
 {
+  /**
+   * @covers Map::__construct
+   * 
+   */
   public function testConstruct(): void
   {
     $cases = [
@@ -34,6 +38,10 @@ class MapTest extends TestCase
     }
   }
 
+  /**
+   * @covers Map::__construct
+   * 
+   */
   public function testException(): void
   {
     $input = [1, 2, 3, 4, 5, 6];
@@ -48,6 +56,10 @@ class MapTest extends TestCase
     $this->fail('Exception was not thrown on invalid constructor argument');
   }
 
+  /**
+   * @covers Map::length
+   * 
+   */
   public function testLength(): void
   {
     $cases = [
@@ -68,6 +80,10 @@ class MapTest extends TestCase
     }
   }
 
+  /**
+   * @covers Map::&iter
+   * 
+   */
   public function testIter(): void
   {
     $input = [
@@ -84,6 +100,10 @@ class MapTest extends TestCase
     }
   }
 
+  /**
+   * @covers Map::filter
+   * 
+   */
   public function testFilter(): void
   {
     $cases = [
@@ -116,6 +136,10 @@ class MapTest extends TestCase
     }
   }
 
+  /**
+   * @covers Map::get
+   * 
+   */
   public function testGet(): void
   {
     $input = [
@@ -134,6 +158,10 @@ class MapTest extends TestCase
     $this->assertEquals($expected, $got);
   }
 
+  /**
+   * @covers Map::get
+   * 
+   */
   public function testGetException(): void
   {
     $input = [

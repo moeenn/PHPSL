@@ -12,11 +12,15 @@ use \Exception;
 
 class VectorTest extends TestCase
 {
+  /**
+   *  @covers Vector::__construct
+   * 
+   */
   public function testConstruct(): void
   {
     $cases = [
-        [1, 2, 3, 4, 5, 6],
-        ['a', 'b', 'c', 'xyz'],
+      [1, 2, 3, 4, 5, 6],
+      ['a', 'b', 'c', 'xyz'],
     ];
 
     foreach ($cases as &$case) {
@@ -25,6 +29,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::__construct
+   * 
+   */
   public function testException(): void
   {
     $input = [
@@ -42,6 +50,10 @@ class VectorTest extends TestCase
     $this->fail('Exception was not thrown on invalid constructor argument');
   }
 
+  /**
+   *  @covers Vector::isAssociative
+   * 
+   */
   public function testIsAssociative(): void
   {
     $cases = [
@@ -64,6 +76,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::length
+   * 
+   */
   public function testLength(): void
   {
     $cases = [
@@ -80,6 +96,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::map
+   * 
+   */
   public function testMap(): void
   {
     $cases = [
@@ -106,6 +126,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::reduce
+   * 
+   */
   public function testReduce(): void
   {
     $cases = [
@@ -160,6 +184,10 @@ class VectorTest extends TestCase
   //   // $this->assertTrue($flag);
   // }
 
+  /**
+   *  @covers Vector::&iter
+   * 
+   */
   public function testIter(): void
   {
     $input = [1, 2, 3, 4, 5, 6];
@@ -172,6 +200,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::sort
+   * 
+   */
   public function testSort(): void
   {
     $cases = [
@@ -205,6 +237,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::sort
+   * 
+   */
   public function testSortException(): void
   {
     $vec = new Vector([1, 2, 3, 4, 5]);
@@ -218,7 +254,11 @@ class VectorTest extends TestCase
     $this->fail('Exception not thrown on invalid sort order argument');
   }
 
-
+  /**
+   *  @covers Vector::map
+   *  @covers Vector::sort
+   * 
+   */
   public function testMethodChaining(): void
   {
     $input = [10, 5, 3, 2, 6];
@@ -233,6 +273,10 @@ class VectorTest extends TestCase
     $this->assertTrue($expected === $got->toArray());
   }
 
+  /**
+   *  @covers Vector::join
+   * 
+   */
   public function testJoin(): void
   {
     $cases = [
@@ -249,6 +293,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::exists
+   * 
+   */
   public function testExists(): void
   {
     $cases = [
@@ -271,6 +319,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::check
+   * 
+   */
   public function testCheck(): void
   {
     $cases = [
@@ -304,6 +356,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::push
+   * 
+   */
   public function testPush(): void
   {
     $cases = [
@@ -321,6 +377,10 @@ class VectorTest extends TestCase
     }
   }
 
+  /**
+   *  @covers Vector::append
+   * 
+   */
   public function testAppend(): void
   {
     $cases = [

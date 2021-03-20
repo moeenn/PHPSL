@@ -42,7 +42,7 @@ class FileObject
   {
     try {
       $this->file = \fopen($this->filepath, $this->mode);
-    } catch (\Exception $_) {
+    } catch (\Exception $e) {
       throw new Exception("Failed to open file '{$this->filepath}', please check file permissions");
     }
     $this->isOpen = true;
@@ -60,6 +60,14 @@ class FileObject
     while (($line = fgets($this->file)) !== false) {
       yield $line;
     }
+  }
+
+  /**
+   *  return the path of a fileObject
+  */
+  public function path(): string
+  {
+    return $this->filepath;
   }
 
   /**

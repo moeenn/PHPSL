@@ -11,6 +11,10 @@ use SOL5\PHPSL\JSON;
 
 class JSONTest extends TestCase
 {
+  /**
+   *  @covers JSON::encode
+   * 
+  */
   public function testEncode(): void
   {
     $cases = [
@@ -37,6 +41,10 @@ class JSONTest extends TestCase
     }
   }
 
+  /**
+   *  @covers JSON::decode
+   * 
+  */  
   public function testDecode(): void
   {
     $cases = [

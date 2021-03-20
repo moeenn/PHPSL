@@ -11,6 +11,10 @@ use SOL5\PHPSL\Collection;
 
 class ArrTest extends TestCase
 {
+  /**
+   *  @covers OSO\PHPSL\Collection\map
+   * 
+   */
   public function testMap(): void
   {
     $input = [1, 2, 3, 4, 5];
@@ -23,6 +27,10 @@ class ArrTest extends TestCase
     $this->assertTrue($expected === $got);
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\filter
+   * 
+   */
   public function testFilter(): void
   {
     $input = [1, 2, 3, 4, 5];
@@ -42,6 +50,10 @@ class ArrTest extends TestCase
     $this->assertTrue($flag);
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\sort
+   * 
+   */
   public function testSortAscending(): void
   {
     $cases = [
@@ -61,6 +73,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\sort
+   * 
+   */
   public function testSortDescending(): void
   {
     $cases = [
@@ -82,6 +98,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\sort
+   * 
+   */
   public function testSortAssocAscending(): void
   {
     $cases = [
@@ -121,6 +141,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\sort
+   * 
+   */
   public function testSortAssocKeyAscending(): void
   {
     $cases = [
@@ -162,6 +186,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\sort
+   * 
+   */
   public function testSortAssocDescending(): void
   {
     $cases = [
@@ -203,6 +231,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\sort
+   * 
+   */
   public function testSortAssocKeyDescending(): void
   {
     $cases = [
@@ -245,6 +277,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\join
+   * 
+   */
   public function testJoin(): void
   {
     $cases = [
@@ -260,6 +296,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   * @covers OSO\PHPSL\Collection\exists
+   * 
+   */
   public function testExists(): void
   {
     $cases = [
@@ -286,6 +326,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\check
+   * 
+   */
   public function testCheck(): void
   {
     $cases = [
@@ -323,6 +367,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\length
+   * 
+   */
   public function testLength(): void
   {
     $cases = [
@@ -346,6 +394,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\reduce
+   * 
+   */
   public function testReduce(): void
   {
     $cases = [
@@ -377,6 +429,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\find
+   * 
+   */
   public function testFind(): void
   {
     $cases = [
@@ -422,6 +478,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\findAll
+   * 
+   */
   public function testFindAll(): void
   {
     $cases = [
@@ -473,6 +533,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\push
+   * 
+   */
   public function testPush(): void
   {
     $cases = [
@@ -489,6 +553,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\append
+   * 
+   */
   public function testAppend(): void
   {
     $cases = [
@@ -505,6 +573,10 @@ class ArrTest extends TestCase
     }
   }
 
+  /**
+   *  @covers OSO\PHPSL\Collection\merge
+   * 
+   */
   public function testMerge(): void
   {
     $cases = [

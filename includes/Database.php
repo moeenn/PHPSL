@@ -14,9 +14,9 @@ class Database
   private string $dsn;
   private $connection = null;
 
-  function __construct(string $host, string $db_name)
+  function __construct(string $host, string $dbName)
   {
-    $this->dsn = "mysql:host={$host};dbname={$db_name}";
+    $this->dsn = "mysql:host={$host};dbname={$dbName}";
   }
 
   /**

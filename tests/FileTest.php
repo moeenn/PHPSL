@@ -23,12 +23,20 @@ class FileTest extends TestCase
     $this->contentSize = mb_strlen($this->content, '8bit');
   }
 
+  /**
+   * @covers File::exists
+   * 
+   */
   public function testExists(): void
   {    
     $exists = File\exists($this->filePath);
     $this->assertTrue($exists);
   }
 
+  /**
+   * @covers File::move
+   * 
+   */
   public function testMove(): void
   {
     File\move($this->filePath, $this->newfilePath);
@@ -36,6 +44,10 @@ class FileTest extends TestCase
     File\move($this->newfilePath, $this->filePath);
   }
   
+  /**
+   * @covers File::size
+   * 
+   */
   public function testSize(): void
   {
     $file = new FileObject($this->filePath);
@@ -45,6 +57,10 @@ class FileTest extends TestCase
     $this->assertTrue($size === 0);
   }
 
+  /**
+   * @covers File::write
+   * 
+   */
   public function testWrite(): void
   {
     $file = new FileObject($this->filePath, FileObject::WRITE);
@@ -54,6 +70,10 @@ class FileTest extends TestCase
     $this->assertTrue($size === $this->contentSize);
   }
 
+  /**
+   * @covers File::dump
+   * 
+   */
   public function testDump(): void
   {
     $file = new FileObject($this->filePath, FileObject::WRITE);
@@ -65,6 +85,10 @@ class FileTest extends TestCase
     $this->assertEquals($this->content, $content);
   }
 
+  /**
+   * @covers File::delete
+   * 
+   */
   public function testDelete(): void
   {
     File\delete($this->filePath);

@@ -11,6 +11,10 @@ use SOL5\PHPSL\Str;
 
 class StrTest extends TestCase
 {
+  /**
+   * @covers Str::upper
+   * 
+   */
   public function testUpper(): void
   {
     $cases = [
@@ -30,6 +34,10 @@ class StrTest extends TestCase
     }
   }
 
+  /**
+   * @covers Str::lower
+   * 
+   */
   public function testLower(): void
   {
     $cases = [
@@ -49,6 +57,10 @@ class StrTest extends TestCase
     }
   }
 
+  /**
+   * @covers Str::title
+   * 
+  */
   public function testTitle(): void
   {
     $cases = [
@@ -68,6 +80,10 @@ class StrTest extends TestCase
     }
   }
 
+  /**
+   * @covers Str::slug
+   * 
+  */
   public function testSlug(): void
   {
     $cases = [
@@ -83,6 +99,10 @@ class StrTest extends TestCase
     }
   }
 
+  /**
+   * @covers Str::random
+   * 
+  */
   public function testRandom(): void
   {
     $limit = 200;
@@ -101,6 +121,10 @@ class StrTest extends TestCase
     }
   }
 
+  /**
+   * @covers Str::split
+   * 
+  */
   public function testSplit(): void
   {
     $cases = [
@@ -122,6 +146,10 @@ class StrTest extends TestCase
     }
   }
 
+  /**
+   * @covers Str::length
+   * 
+  */
   public function testLength(): void
   {
     $cases = [
@@ -137,6 +165,10 @@ class StrTest extends TestCase
     }
   }
 
+  /**
+   * @covers Str::sprintf
+   * 
+  */
   public function testSprintf(): void
   {
     $cases = [

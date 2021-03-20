@@ -11,6 +11,10 @@ use SOL5\PHPSL\Num;
 
 class NumberTest extends TestCase
 {
+  /**
+   * @covers Num::Int
+   * 
+   */
   public function testInt(): void
   {
     $cases = [
@@ -34,6 +38,10 @@ class NumberTest extends TestCase
     }
   }
 
+  /**
+   * @covers Num::float
+   * 
+   */
   public function testFloat(): void
   {
     $cases = [
@@ -57,6 +65,10 @@ class NumberTest extends TestCase
     }
   }
 
+  /**
+   * @covers Num::min
+   * 
+   */
   public function testMin(): void
   {
     $cases = [
@@ -76,6 +88,10 @@ class NumberTest extends TestCase
     }
   }
 
+  /**
+   * @covers Num::max
+   * 
+   */
   public function testMax(): void
   {
     $cases = [
@@ -95,6 +111,10 @@ class NumberTest extends TestCase
     }
   }
 
+  /**
+   * @covers Num::pi
+   * 
+   */
   public function testPi(): void
   {
     $expected = 3.1415926535898;
@@ -102,6 +122,10 @@ class NumberTest extends TestCase
     $this->assertEquals($expected, $got);
   }
 
+  /**
+   * @covers Num::round
+   * 
+   */
   public function testRound(): void
   {
     $cases = [
@@ -125,6 +149,10 @@ class NumberTest extends TestCase
     }
   }
 
+  /**
+   * @covers Num::floor
+   * 
+   */
   public function testFloor(): void
   {
     $cases = [
@@ -148,6 +176,10 @@ class NumberTest extends TestCase
     }
   }
 
+  /**
+   * @covers Num::ceiling
+   * 
+   */
   public function testCeiling(): void
   {
     $cases = [
@@ -171,6 +203,10 @@ class NumberTest extends TestCase
     }
   }
 
+  /**
+   * @covers Num::radians
+   * 
+   */
   public function testRadians(): void
   {
     $cases = [
@@ -192,8 +228,12 @@ class NumberTest extends TestCase
       $got = Num\radians($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
-  }  
+  }
 
+  /**
+   * @covers Num::degrees
+   * 
+   */
   public function testDegrees(): void
   {
     $cases = [
@@ -211,8 +251,12 @@ class NumberTest extends TestCase
       $got = Num\degrees($case['input']);
       $this->assertEquals($case['expected'], $got);
     }
-  }    
+  }
 
+  /**
+   * @covers Num::randomInt
+   * 
+   */
   public function testRandomInt(): void
   {
     $bounds = [

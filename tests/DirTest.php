@@ -12,6 +12,13 @@ use SOL5\PHPSL\Dir;
 
 class DirTest extends TestCase
 {
+  /**
+   * @covers Dir::create
+   * @covers Dir::exists
+   * @covers Dir::isDir
+   * @covers Dir::move
+   * @covers Dir::remove 
+   */
   public function testIntegration(): void
   {
     $path = __DIR__ . '/file_tests/example';
@@ -35,6 +42,10 @@ class DirTest extends TestCase
     $this->assertFalse($exists);
   }
 
+  /**
+   * @covers Dir::create
+   * 
+   */
   public function testCreateException(): void
   {
     $path = __DIR__ . '/file_tests/sample';
@@ -52,6 +63,10 @@ class DirTest extends TestCase
     $this->fail('Exception not thrown on diplicate directory creation');
   }
 
+  /**
+   * @covers Dir::move
+   * 
+   */
   public function testMoveExceptionDirNotFound(): void
   {
     $oldPath = __DIR__ . '/file_tests/sample2';
@@ -67,6 +82,10 @@ class DirTest extends TestCase
     $this->fail('Exception not thrown on move of non-existing directory');
   }
 
+  /**
+   * @covers Dir::move
+   * 
+   */
   public function testMoveExceptionTargetExists(): void
   {
     $oldPath = __DIR__ . '/file_tests/sample2';

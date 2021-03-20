@@ -11,6 +11,10 @@ use SOL5\PHPSL\Hash;
 
 class HashTest extends TestCase
 {
+  /**
+   * @covers Hash::encode
+   * 
+   */
   public function testEncode(): void
   {
     $message = 'Hello World';
@@ -26,6 +30,10 @@ class HashTest extends TestCase
     $this->assertFalse($has_duplicates);
   }
 
+  /**
+   * @covers Hash::verify
+   * 
+   */
   public function testVerify(): void
   {
     $input = 'Hello World';
@@ -34,6 +42,10 @@ class HashTest extends TestCase
     $this->assertTrue($is_match);
   }
 
+  /**
+   * @covers Hash::md5
+   * 
+   */
   public function testMD5(): void
   { 
     $input = 'Hello World';
@@ -50,6 +62,10 @@ class HashTest extends TestCase
     $this->assertTrue($is_same);
   }
 
+  /**
+   * @covers Hash::salt
+   * 
+   */
   public function testSalt(): void
   {
     $results = [];
